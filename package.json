@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.0.0",
+        "@tailwindcss/postcss7-compat": "^2.1.0",
+        "autoprefixer": "^10.2.5",
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.6",
+        "laravel-mix-purgecss": "^6.0.0",
+        "postcss": "^8.2.9",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "resolve-url-loader": "^3.1.2",
+        "tailwindcss": "^2.1.1"
+    },
+    "dependencies": {}
+}
