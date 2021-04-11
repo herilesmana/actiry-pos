@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import api from '../utils/api'
+import {priceFormat} from '../utils/helper'
 
 const ProductMode = () => {
     const [products, setProducts] = useState([]);
@@ -60,7 +61,7 @@ const ProductMode = () => {
                                     <img src={item.image} alt={item.name} />
                                     <div className="flex pb-3 px-3 text-sm -mt-3">
                                         <p className="flex-grow truncate mr-1">{ item.name }</p>
-                                        <p className="nowrap font-semibold">{ item.price }</p>
+                                        <p className="nowrap font-semibold">{ priceFormat(item.price) }</p>
                                     </div>
                                 </div>
                             ))}
