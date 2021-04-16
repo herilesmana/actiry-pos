@@ -8,3 +8,8 @@ export const numberFormat = (number) => {
 export const priceFormat = (number) => {
     return number ? `Rp. ${numberFormat(number)}` : `Rp. 0`;
 }
+
+export const dateFormat = (date) => {
+    const formatter = new Intl.DateTimeFormat('id', { dateStyle: 'short', timeStyle: 'short'});
+    return formatter.format(date);
+}
