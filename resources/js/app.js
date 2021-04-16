@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import {dateFormat} from './utils/helper'
 
 import Layout from './components/Layout'
 import LeftSidebar from './components/LeftSidebar'
+import ReceiptModal from './components/ReceiptModal'
 import RightSidebar from './components/RightSidebar'
 import ProductMode from './pages/ProductMode'
+
 
 const App = () => {
 
     const [cartItems, setCartItems] = useState([])
     const [cash, setCash] = useState(0)
     const [change, setChange] = useState(0)
+    const [showReceiptModal, setShowReceiptModal] = useState(false)
+    const [receipt, setReceipt] = useState({})
 
     useEffect(() => {
         updateChange()
@@ -82,6 +87,19 @@ const App = () => {
         clearSound()
     }
 
+    const submit = () => {
+        const time = new Date();
+        setShowReceiptModal(true)
+        setReceipt({
+            receiptNo : `ACPOS-KS-${Math.round(time.getTime() / 1000)}`,
+            receiptDate : dateFormat(time)
+        })
+    }
+
+    const printAndProceed = () => {
+        console.log('Process the transacion')
+    }
+
     return (
         <>
             <Layout>
@@ -96,8 +114,19 @@ const App = () => {
                     addCash={addCash}
                     cash={cash}
                     change={change}
+                    submit={submit}
                 />
             </Layout>
+            <ReceiptModal
+                showReceiptModal={showReceiptModal}
+                setShowReceiptModal={setShowReceiptModal}
+                receipt={receipt}
+                cartItems={cartItems}
+                getTotalPrice={getTotalPrice}
+                cash={cash}
+                change={change}
+                printAndProceed={printAndProceed}
+            />
         </>
     )
 }
