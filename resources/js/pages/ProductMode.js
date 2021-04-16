@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react'
 import api from '../utils/api'
 import {priceFormat} from '../utils/helper'
 
-const ProductMode = () => {
+const ProductMode = (props) => {
     const [products, setProducts] = useState([]);
+
+    const { addToCart } = props
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,7 +59,7 @@ const ProductMode = () => {
                         {/* Ini untuk list product */}
                         <div className="grid grid-cols-4 gap-4 pb-3">
                             { products.map(item => (
-                                <div key={item.id} role="button" className="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg" >
+                                <div onClick={() => addToCart(item)} key={item.id} role="button" className="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg" >
                                     <img src={item.image} alt={item.name} />
                                     <div className="flex pb-3 px-3 text-sm -mt-3">
                                         <p className="flex-grow truncate mr-1">{ item.name }</p>
