@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 import Layout from './components/Layout'
@@ -9,6 +9,12 @@ import ProductMode from './pages/ProductMode'
 const App = () => {
 
     const [cartItems, setCartItems] = useState([])
+    const [cash, setCash] = useState(0)
+    const [change, setChange] = useState(0)
+
+    useEffect(() => {
+        updateChange()
+    }, [cash,cartItems])
 
     const playSound = (src) => {
         let sound = new Audio();
@@ -62,6 +68,15 @@ const App = () => {
         }
     }
 
+    const updateChange = () => {
+        setChange(cash-getTotalPrice())
+    }
+
+    const addCash = (amount) => {
+        setCash(cash+amount)
+        beep()
+    }
+
     const clearCart = () => {
         setCartItems([])
         clearSound()
@@ -72,7 +87,16 @@ const App = () => {
             <Layout>
                 <LeftSidebar />
                 <ProductMode addToCart={addToCart} />
-                <RightSidebar clearCart={clearCart} removeFromCart={removeFromCart} addToCart={addToCart} cartItems={cartItems} getTotalPrice={getTotalPrice} />
+                <RightSidebar
+                    clearCart={clearCart}
+                    removeFromCart={removeFromCart}
+                    addToCart={addToCart}
+                    cartItems={cartItems}
+                    getTotalPrice={getTotalPrice}
+                    addCash={addCash}
+                    cash={cash}
+                    change={change}
+                />
             </Layout>
         </>
     )

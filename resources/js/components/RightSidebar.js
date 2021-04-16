@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import {priceFormat} from '../utils/helper'
+import {priceFormat, numberFormat} from '../utils/helper'
 
 const RightSidebar = (props) => {
-    const { cartItems, addToCart, clearCart, removeFromCart, getTotalPrice } = props;
+    const { cartItems, addToCart, clearCart, removeFromCart, getTotalPrice, addCash, cash, change } = props;
+    const moneys = [2000, 5000, 10000, 20000, 50000, 100000]
     
     return (
       <div className="w-5/12 flex flex-col bg-blue-gray-50 h-full bg-white pr-4 pl-2 py-4">
@@ -84,23 +85,20 @@ const RightSidebar = (props) => {
                 <div className="flex-grow text-left">CASH</div>
                 <div className="flex text-right">
                   <div className="mr-2">Rp</div>
-                  <input type="text" className="w-28 text-right bg-white shadow rounded-lg focus:bg-white focus:shadow-lg px-2 focus:outline-none" />
+                  <input value={numberFormat(cash)} type="text" className="w-28 text-right bg-white shadow rounded-lg focus:bg-white focus:shadow-lg px-2 focus:outline-none" />
                 </div>
               </div>
               <hr className="my-2" />
               <div className="grid grid-cols-3 gap-2 mt-2">
-                  <button className="bg-white rounded-lg shadow hover:shadow-lg focus:outline-none inline-block px-2 py-1 text-sm">+<span x-text="numberFormat(money)"></span></button>
+                {moneys.map((money) => (
+                  <button onClick={() => addCash(money)} key={money} className="bg-white rounded-lg shadow hover:shadow-lg focus:outline-none inline-block px-2 py-1 text-sm">+<span> { numberFormat(money) } </span></button>
+                ))}
               </div>
             </div>
-            <div className="flex mb-3 text-lg font-semibold bg-cyan-50 text-blue-gray-700 rounded-lg py-2 px-3">
-              <div className="text-cyan-800">CHANGE</div>
-              <div
-                className="text-right flex-grow text-cyan-600"
-                x-text="priceFormat(change)">
-              </div>
-            </div>
-            <div className="flex mb-3 text-lg font-semibold bg-pink-100 text-blue-gray-700 rounded-lg py-2 px-3">
-              <div className="text-right flex-grow text-pink-600">
+            <div className={"flex mb-3 text-lg font-semibold text-blue-gray-700 rounded-lg py-2 px-3 "+( change >= 0 ? "bg-cyan-50" : "bg-pink-100")}>
+              {change >= 0 && <div className="text-cyan-800">CHANGE</div> }
+              <div className="text-right flex-grow">
+                <span className={change >= 0 ? 'text-cyan-600' : 'text-pink-600'}>{ priceFormat(change) }</span>
               </div>
             </div>
             <div className="flex justify-center mb-3 text-lg font-semibold bg-cyan-50 text-cyan-700 rounded-lg py-2 px-3">
