@@ -10,6 +10,6 @@
     </head>
     <body>
         <div id="root"></div>
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="http://localhost:8080/js/app.js"></script>
     </body>
 </html>
