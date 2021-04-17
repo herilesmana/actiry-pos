@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>Actiry POS Login</title>
 </head>
-<body>
-    
+<body style="background-image: url('{{ asset('/img/background.png') }}')">
+    <div id="root"></div>
+    <script src="http://localhost:8080/js/login.js"></script>
 </body>
 </html>
