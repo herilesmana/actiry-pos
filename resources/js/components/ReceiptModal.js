@@ -1,16 +1,39 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { priceFormat } from '../utils/helper';
+import web from '../utils/web'
 
 const ReceiptModal = (props) => {
 
     const {showReceiptModal, setShowReceiptModal, receipt, cartItems, getTotalPrice, cash, change, clearAll} = props;
+    const [processing, setProcessing] = useState(false)
 
-    const printAndProceed = () => {
-        const titleBefore = document.title
-        document.title = receipt.receiptNo
-        window.print()
-        clearAll()
-        document.title = titleBefore
+    const printAndProceed = async () => {
+        setProcessing(true)
+        // Store to database
+        await web.post('/invoice/store', {
+            receipt_number: receipt.receiptNo,
+            total_amount: getTotalPrice(),
+            cash: cash,
+            change: change,
+            products: cartItems
+        })
+        .then((response) => {
+            setProcessing(false)
+            console.log(response)
+            if(response.status === 200 && response.data.success === 1) {
+                const titleBefore = document.title
+                document.title = receipt.receiptNo
+                window.print()
+                clearAll()
+                document.title = titleBefore
+            }else{
+                alert('Error. Please try again');
+            }
+        })
+        .catch((error) => {
+            setProcessing(false)
+            alert('Error. Please try again');
+        })
     }
 
     const Receipt = () => {
@@ -81,7 +104,9 @@ const ReceiptModal = (props) => {
                     <div className="w-96 rounded-3xl bg-white shadow-xl overflow-hidden z-10 opacity-100 scale-100">
                         <Receipt />
                         <div className="p-4 w-full">
-                            <button onClick={() => printAndProceed()} className="bg-cyan-500 text-white text-lg px-4 py-3 rounded-2xl w-full focus:outline-none">PROCEED</button>
+                            <button disabled={processing} onClick={() => printAndProceed()} className="bg-cyan-500 hover:bg-cyan-400 text-white text-lg px-4 py-3 rounded-2xl w-full focus:outline-none">
+                                { processing ? 'Processing..' : 'PROCEED'}
+                            </button>
                         </div>
                     </div>
                 </div>
