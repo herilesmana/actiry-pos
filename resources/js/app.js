@@ -96,8 +96,12 @@ const App = () => {
         })
     }
 
-    const printAndProceed = () => {
-        console.log('Process the transacion')
+    const clearAll = () => {
+        setShowReceiptModal(false)
+        setCartItems([])
+        setReceipt({})
+        setCash(0)
+        setChange(0)
     }
 
     return (
@@ -125,7 +129,7 @@ const App = () => {
                 getTotalPrice={getTotalPrice}
                 cash={cash}
                 change={change}
-                printAndProceed={printAndProceed}
+                clearAll={clearAll}
             />
         </>
     )
