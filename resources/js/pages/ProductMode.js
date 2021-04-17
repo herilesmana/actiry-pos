@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import api from '../utils/api'
+import web from '../utils/web'
 import {priceFormat} from '../utils/helper'
 import ContentLoader from 'react-content-loader'
 
@@ -13,7 +13,7 @@ const ProductMode = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true)
-            const result = await api('/products')
+            const result = await web('/products')
             setProducts(result.data)
             setIsLoading(false)
         }
