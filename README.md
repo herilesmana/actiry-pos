@@ -12,7 +12,7 @@ Actiry POS is open source project by actiry. Implementation from https://github.
 - Run php artisan key:generate
 - Change the database credential on .env file
 - Run "php artisan migrate" command
-- Run "php artisan db:seed --class ProductSeeder" command
+- Run "php artisan db:seed" command
 - Run "npm install" for installing npm packages
 - Run "npm run dev" for development, or "npm run production" for production
 - Serve the app using "php artisan serve" or using webserver like apache
