@@ -17,6 +17,7 @@ const ReceiptModal = (props) => {
         return (
             <div className="text-left w-full text-sm p-6 overflow-auto">
                 <div className="text-center">
+                    <img src="img/logo.png" className="w-10 m-auto filter grayscale" />
                     <h2 className="text-xl font-semibold">ACTIRY POS</h2>
                     <p>CABANG SUNAGARA</p>
                 </div>
