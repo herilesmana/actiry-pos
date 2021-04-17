@@ -11,7 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 
+let url = process.env.APP_URL.replace(/(^\w+:|^)\/\//, '');
+mix.options({
+   hmrOptions: {
+       host: url,
+       port: 8080 // Can't use 443 here because address already in use
+   }
+});
+
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/login.js', 'public/js')
     .react()
     .postCss('resources/css/app.css', 'public/css', [
         require('tailwindcss')

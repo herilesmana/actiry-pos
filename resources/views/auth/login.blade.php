@@ -11,6 +11,6 @@
 </head>
 <body style="background-image: url('{{ asset('/img/background.png') }}'); background-size: cover">
     <div id="root"></div>
-    <script src="http://localhost:8080/js/login.js"></script>
+    <script src="{{ asset('js/login.js') }}"></script>
 </body>
 </html>
