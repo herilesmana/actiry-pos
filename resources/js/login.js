@@ -10,7 +10,8 @@ const Login = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         setLoading(true)
         setError('')
         web.post('login', {
@@ -51,17 +52,19 @@ const Login = () => {
                                 </span>
                             </div>
                         }
-                        <div className="flex flex-col mb-4">
-                            <label className="mb-2 uppercase font-semibold text-sm text-grey-darkest" htmlFor="username">Username</label>
-                            <input ref={usernameRef} className="border py-2 px-3 text-grey-darkest rounded" type="text" name="username" id="username" />
-                        </div>
-                        <div className="flex flex-col mb-4">
-                            <label className="mb-2 uppercase font-semibold text-sm text-grey-darkest" htmlFor="password">Password</label>
-                            <input ref={passwordRef} className="border py-2 px-3 text-grey-darkest rounded" type="password" name="password" id="password" />
-                        </div>
+                        <form id="login-form" onSubmit={handleSubmit}>
+                            <div className="flex flex-col mb-4">
+                                <label className="mb-2 uppercase font-semibold text-sm text-grey-darkest" htmlFor="username">Username</label>
+                                <input ref={usernameRef} className="border py-2 px-3 text-grey-darkest rounded" type="text" name="username" id="username" />
+                            </div>
+                            <div className="flex flex-col mb-4">
+                                <label className="mb-2 uppercase font-semibold text-sm text-grey-darkest" htmlFor="password">Password</label>
+                                <input ref={passwordRef} className="border py-2 px-3 text-grey-darkest rounded" type="password" name="password" id="password" />
+                            </div>
+                        </form>
                     </div>
                     <div className="p-4 w-full">
-                        <button disabled={loading} onClick={handleSubmit} className="bg-cyan-500 text-white text-lg px-4 py-3 rounded-2xl w-full focus:outline-none hover:bg-cyan-700">
+                        <button form="login-form" disabled={loading} className="bg-cyan-500 text-white text-lg px-4 py-3 rounded-2xl w-full focus:outline-none hover:bg-cyan-700">
                             { loading ? 'Pocessing..' : 'Login'}
                         </button>
                     </div>
