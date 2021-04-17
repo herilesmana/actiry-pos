@@ -1,24 +1,43 @@
 import React, {useState, useEffect} from 'react'
 import api from '../utils/api'
 import {priceFormat} from '../utils/helper'
+import ContentLoader from 'react-content-loader'
 
 const ProductMode = (props) => {
     const [products, setProducts] = useState([]);
     const [search, setSearch] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     const { addToCart } = props
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true)
             const result = await api('/products')
             setProducts(result.data)
+            setIsLoading(false)
         }
         fetchData()
         // setProducts(result.data)
     }, [])
 
+    const ProductLoading = props => (
+        <ContentLoader
+        //   width={450}
+          height={300}
+        //   viewBox=""
+          backgroundColor="#ffffff"
+          foregroundColor="#f0f0f0"
+          {...props}
+        >
+          <rect x="0" y="235" rx="4" ry="4" width="100" height="9" />
+          <rect x="160" y="235" rx="3" ry="3" width="100" height="9" />
+          <rect x="0" y="10" rx="10" ry="10" width="300" height="217" />
+        </ContentLoader>
+      )
+
     return (
-        <div className="flex-grow flex">
+        <div className="w-6/12 flex-grow flex">
             <div className="flex flex-col bg-blue-gray-50 h-full w-full py-4">
                 <div className="flex px-2 flex-row relative">
                     <div className="absolute left-5 top-3 px-2 py-2 rounded-full bg-cyan-500 text-white">
@@ -32,7 +51,7 @@ const ProductMode = (props) => {
                     <div className="h-full overflow-y-auto px-2">
                         
                         {/* Ini untuk kalo ga ada product sama sekali */}
-                        { products.length === 0 &&
+                        { (products.length === 0 && isLoading === false) &&
                         <div className="select-none bg-blue-gray-100 rounded-3xl flex flex-wrap content-center justify-center h-full opacity-25">
                             <div className="w-full text-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,6 +64,18 @@ const ProductMode = (props) => {
                                 </p>
                             </div>
                         </div>
+                        }
+
+                        { (products.length === 0 && isLoading === true) &&
+
+                        <div className="grid grid-cols-4 gap-4 pb-1">
+                            {
+                                [1,2,3,4,5,6,7,8,9,10].map((item) => (
+                                    <ProductLoading key={item} className="w-full" />
+                                ))
+                            }
+                        </div>
+
                         }
 
                         {/* Ini untuk jika hasil pencarian kosong */}
@@ -79,7 +110,9 @@ const ProductMode = (props) => {
                                     }
                                 }).map(item => (
                                 <div onClick={() => addToCart(item)} key={item.id} role="button" className="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg" >
-                                    <img src={item.image} alt={item.name} />
+                                    <div className="w-full h-72">
+                                        <img src={item.image} alt={item.name} />
+                                    </div>
                                     <div className="flex pb-3 px-3 text-sm -mt-3">
                                         <p className="flex-grow truncate mr-1">{ item.name }</p>
                                         <p className="nowrap font-semibold">{ priceFormat(item.price) }</p>

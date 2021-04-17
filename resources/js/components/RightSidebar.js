@@ -6,7 +6,7 @@ const RightSidebar = (props) => {
     const moneys = [2000, 5000, 10000, 20000, 50000, 100000]
     
     return (
-      <div className="w-5/12 flex flex-col bg-blue-gray-50 h-full bg-white pr-4 pl-2 py-4">
+      <div className="w-3/12 flex flex-col bg-blue-gray-50 h-full bg-white pr-4 pl-2 py-4">
         <div className="bg-white rounded-3xl flex flex-col h-full shadow">
 
           { cartItems.length === 0 ?
