@@ -2,9 +2,9 @@
 
 ## About Actiry POS
 
-Actiry POS is open source project by actiry. Implementation from https://github.com/emsifa/tailwind-pos. Using different technology. Which is laravel for backend and react js for front end UI. And plus laravel authentication.
+Actiry POS is an open source project by actiry. Implementation from https://github.com/emsifa/tailwind-pos. Using different technology. Which is laravel for backend and react js for front end UI. And plus laravel authentication.
 
-## How to run project
+## How to run the project
 
 - First, clone the repo.
 - Run "composer install" for installing laravel packages
@@ -16,8 +16,8 @@ Actiry POS is open source project by actiry. Implementation from https://github.
 - Run "npm install" for installing npm packages
 - Run "npm run dev" for development, or "npm run production" for production
 - Serve the app using "php artisan serve" or using webserver like apache
-- And done. App ready to use.
-
+- And done. App ready to use. With default credential { username: heri, password: asdf } ( created by seeder )
+- 
 ## License
 
 This app is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
